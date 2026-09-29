@@ -1,1 +1,77 @@
-body{background:#f5faf5;color:#243b2a}.navbar-brand{letter-spacing:.3px}h1{font-weight:700;color:#176b38}.card{border:0;border-radius:14px}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5faf5;
+    color: #243b2a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: 0.3px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: #176b38;
+}
+
+.btn-success {
+    background-color: #176b38;
+    border-color: #176b38;
+}
+
+.btn-success:hover {
+    background-color: #0d5027;
+    border-color: #0d5027;
+}
+
+.card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #176b38;
+    box-shadow: 0 0 0 0.2rem rgba(23, 107, 56, 0.25);
+}
+
+footer {
+    border-top: 1px solid #ddd;
+    margin-top: 5rem;
+}
+
+.equipment-card {
+    transition: transform 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-5px);
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+input[type="date"],
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] {
+    border-radius: 8px;
+}

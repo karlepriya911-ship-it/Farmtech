@@ -1,1 +1,93 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Equipment | FarmTech</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body><nav class="navbar navbar-dark bg-success"><div class="container"><a class="navbar-brand" href="index.html">🌾 FarmTech</a></div></nav><main class="container py-4"><h2>Available Equipment</h2><input id="search" class="form-control mb-4" placeholder="Search by name, category, or location"><div id="equipment" class="row g-3"><p>Loading equipment...</p></div></main><script>const box=document.querySelector('#equipment'),input=document.querySelector('#search');async function load(){const r=await fetch('../backend/equipment/view_equipment.php?search='+encodeURIComponent(input.value));const items=await r.json();box.innerHTML=items.length?items.map(e=>`<div class="col-md-4"><div class="card shadow-sm p-3 h-100"><h5>${e.name}</h5><span class="text-muted">${e.category} · ${e.location}</span><p class="my-2">${e.description||'Reliable agricultural equipment.'}</p><strong>₹${e.price_per_day}/day</strong></div></div>`).join(''):'<p>No approved equipment found.</p>'}input.addEventListener('input',load);load();</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment - FarmTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">🌾 FarmTech</a>
+            <div>
+                <a class="btn btn-light btn-sm" href="login.html">Login</a>
+                <a class="btn btn-outline-light btn-sm ms-2" href="index.html">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <h2 class="mb-4">Available Equipment</h2>
+        
+        <div class="mb-4">
+            <input type="text" id="search" class="form-control form-control-lg" placeholder="🔍 Search by name, category, or location...">
+        </div>
+
+        <div id="equipment" class="row g-3">
+            <div class="col-12">
+                <p class="text-muted">Loading equipment...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 FarmTech. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const equipmentContainer = document.querySelector('#equipment');
+        const searchInput = document.querySelector('#search');
+
+        async function loadEquipment() {
+            const searchTerm = searchInput.value || '';
+            
+            try {
+                const response = await fetch('../backend/equipment/view_equipment.php?search=' + encodeURIComponent(searchTerm));
+                const equipment = await response.json();
+
+                if (Array.isArray(equipment) && equipment.length > 0) {
+                    equipmentContainer.innerHTML = equipment.map(item => `
+                        <div class="col-md-4 equipment-card">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success">${item.name}</h5>
+                                    <p class="text-muted small">${item.category} • ${item.location}</p>
+                                    <p class="card-text">${item.description || 'High-quality agricultural equipment.'}</p>
+                                    <div class="mt-3">
+                                        <span class="badge bg-success">₹${item.price_per_day}/day</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <button class="btn btn-success w-100 btn-sm" onclick="bookEquipment(${item.id})">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    equipmentContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center">No equipment found. Try a different search.</p></div>';
+                }
+            } catch (error) {
+                equipmentContainer.innerHTML = '<div class="col-12"><p class="text-danger text-center">⚠️ Error loading equipment. Make sure XAMPP is running.</p></div>';
+                console.error('Error:', error);
+            }
+        }
+
+        function bookEquipment(equipmentId) {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                alert('Please login first to book equipment.');
+                window.location.href = 'login.html';
+                return;
+            }
+            alert('Booking feature coming soon! Equipment ID: ' + equipmentId);
+        }
+
+        searchInput.addEventListener('input', loadEquipment);
+        loadEquipment();
+    </script>
+</body>
+</html>
