@@ -1,93 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipment - FarmTech</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <nav class="navbar navbar-dark bg-success">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">🌾 FarmTech</a>
-            <div>
-                <a class="btn btn-light btn-sm" href="login.html">Login</a>
-                <a class="btn btn-outline-light btn-sm ms-2" href="index.html">Home</a>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipment Marketplace | FarmTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">🌾 FarmTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="equipment.html">Equipment</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard-farmer.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+            <li class="nav-item ms-lg-2"><a class="btn btn-light" href="register.html">Register</a></li>
+          </ul>
         </div>
+      </div>
     </nav>
 
-    <main class="container py-4">
-        <h2 class="mb-4">Available Equipment</h2>
-        
-        <div class="mb-4">
-            <input type="text" id="search" class="form-control form-control-lg" placeholder="🔍 Search by name, category, or location...">
+    <main class="container py-5">
+      <div class="row mb-4 align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-6 fw-bold text-success">Find the right farm equipment</h1>
+          <p class="text-muted mt-2">Search, compare, and rent reliable machines for your farming needs.</p>
         </div>
+        <div class="col-lg-4">
+          <div class="input-group shadow-sm rounded-pill overflow-hidden">
+            <span class="input-group-text bg-white border-0">🔎</span>
+            <input id="searchInput" type="text" class="form-control border-0" placeholder="Search equipment..." />
+          </div>
+        </div>
+      </div>
 
-        <div id="equipment" class="row g-3">
-            <div class="col-12">
-                <p class="text-muted">Loading equipment...</p>
-            </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <select id="categoryFilter" class="form-select shadow-sm">
+            <option value="all">All Categories</option>
+            <option value="tractor">Tractors</option>
+            <option value="harvester">Harvesters</option>
+            <option value="sprayer">Sprayers</option>
+            <option value="tiller">Tillers</option>
+            <option value="transplanter">Transplanters</option>
+          </select>
         </div>
+        <div class="col-md-3">
+          <select id="locationFilter" class="form-select shadow-sm">
+            <option value="all">All Locations</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Karnataka">Karnataka</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select id="priceFilter" class="form-select shadow-sm">
+            <option value="all">All Price Ranges</option>
+            <option value="low">Below ₹500/day</option>
+            <option value="mid">₹500 - ₹800/day</option>
+            <option value="high">Above ₹800/day</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button id="clearFilters" class="btn btn-outline-success w-100 shadow-sm">Clear Filters</button>
+        </div>
+      </div>
+
+      <div id="equipmentGrid" class="row g-4"></div>
     </main>
 
-    <footer class="bg-light py-4 mt-5">
-        <div class="container text-center">
-            <p>&copy; 2024 FarmTech. All rights reserved.</p>
+    <footer class="footer bg-dark text-white py-4">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p class="mb-0">© 2024 FarmTech Rental System</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="equipment.html">Equipment</a>
+          <a href="dashboard-farmer.html">Dashboard</a>
         </div>
+      </div>
     </footer>
 
-    <script>
-        const equipmentContainer = document.querySelector('#equipment');
-        const searchInput = document.querySelector('#search');
-
-        async function loadEquipment() {
-            const searchTerm = searchInput.value || '';
-            
-            try {
-                const response = await fetch('../backend/equipment/view_equipment.php?search=' + encodeURIComponent(searchTerm));
-                const equipment = await response.json();
-
-                if (Array.isArray(equipment) && equipment.length > 0) {
-                    equipmentContainer.innerHTML = equipment.map(item => `
-                        <div class="col-md-4 equipment-card">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title text-success">${item.name}</h5>
-                                    <p class="text-muted small">${item.category} • ${item.location}</p>
-                                    <p class="card-text">${item.description || 'High-quality agricultural equipment.'}</p>
-                                    <div class="mt-3">
-                                        <span class="badge bg-success">₹${item.price_per_day}/day</span>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-white">
-                                    <button class="btn btn-success w-100 btn-sm" onclick="bookEquipment(${item.id})">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    equipmentContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center">No equipment found. Try a different search.</p></div>';
-                }
-            } catch (error) {
-                equipmentContainer.innerHTML = '<div class="col-12"><p class="text-danger text-center">⚠️ Error loading equipment. Make sure XAMPP is running.</p></div>';
-                console.error('Error:', error);
-            }
-        }
-
-        function bookEquipment(equipmentId) {
-            const user = localStorage.getItem('user');
-            if (!user) {
-                alert('Please login first to book equipment.');
-                window.location.href = 'login.html';
-                return;
-            }
-            alert('Booking feature coming soon! Equipment ID: ' + equipmentId);
-        }
-
-        searchInput.addEventListener('input', loadEquipment);
-        loadEquipment();
-    </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>

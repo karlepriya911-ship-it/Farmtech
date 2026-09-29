@@ -1,77 +1,191 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    background-color: #f5faf5;
-    color: #243b2a;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6faf6;
+  color: #1d2b1d;
 }
 
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.navbar-brand {
-    font-size: 1.5rem;
-    letter-spacing: 0.3px;
+.hero-section {
+  background: linear-gradient(135deg, #0d3f1d, #1e7a3f 45%, #25a75a 100%);
+  min-height: 520px;
+  display: flex;
+  align-items: center;
 }
 
-h1, h2, h3 {
-    font-weight: 700;
-    color: #176b38;
+.section-kicker {
+  display: inline-block;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1d7a42;
+  font-weight: 700;
 }
 
-.btn-success {
-    background-color: #176b38;
-    border-color: #176b38;
+.card-spotlight {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 22px;
 }
 
-.btn-success:hover {
-    background-color: #0d5027;
-    border-color: #0d5027;
+.featured-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #e8efe8;
 }
 
-.card {
-    border: none;
-    border-radius: 14px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.featured-item:last-child {
+  border-bottom: none;
 }
 
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    transition: box-shadow 0.3s ease;
+.price-tag {
+  background: #eaf9ef;
+  color: #1b7d3c;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
 }
 
-.form-control:focus {
-    border-color: #176b38;
-    box-shadow: 0 0 0 0.2rem rgba(23, 107, 56, 0.25);
+.stats-row {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  color: #fff;
 }
 
-footer {
-    border-top: 1px solid #ddd;
-    margin-top: 5rem;
+.stats-row h3 {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.feature-card {
+  border-radius: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover,
+.equipment-card:hover,
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(29, 73, 41, 0.09) !important;
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+}
+
+.step-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+  height: 100%;
+}
+
+.step-number {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eaf8ef;
+  color: #1d7a42;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #dfe9e1;
+  text-decoration: none;
 }
 
 .equipment-card {
-    transition: transform 0.3s ease;
+  border-radius: 18px;
+  overflow: hidden;
 }
 
-.equipment-card:hover {
-    transform: translateY(-5px);
+.equipment-card img,
+.detail-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
 }
 
-.badge {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
+.price {
+  color: #1d7a42;
+  font-weight: 700;
 }
 
-input[type="date"],
-input[type="email"],
-input[type="password"],
-input[type="text"],
-input[type="tel"] {
-    border-radius: 8px;
+.rating {
+  color: #c77b00;
+  font-weight: 600;
+}
+
+.empty-state {
+  border-radius: 18px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.feature-list li {
+  background: #f2faf3;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  color: #1b3d29;
+}
+
+.booking-box {
+  background: #f6faf7;
+  border: 1px solid #e5efe5;
+}
+
+.stat-card {
+  border-radius: 18px;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.booking-item {
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding: 40px 0;
+  }
+
+  .stats-row {
+    gap: 14px;
+  }
+
+  .footer-links {
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
