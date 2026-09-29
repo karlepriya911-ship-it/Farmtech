@@ -1,0 +1,17 @@
+# XAMPP generated files
+*.log
+*.tmp
+
+# Local configuration
+backend/config/.env
+backend/config/local.php
+
+# User uploads
+assets/images/uploads/*
+!assets/images/uploads/.gitkeep
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
